@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
+    <div class="container-fluid">
+        <a class="navbar-brand p-0" href="#"><img src="./assets/handballapp.svg" alt="handballapp"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-item nav-link"  routerLink="statelist/todos">Jugadores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" routerLink="agregar-jugador">Agregar jugadores</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Jugadores
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="statelist/Territorial Masculino">Territorial Masculino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Territorial Femenino">Territorial Femenino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Juvenil Masculino">Juvenil Masculino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Juvenil Femenino">Juvenil Femenino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Cadete Masculino">Cadete Masculino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Cadete Femenino">Cadete Femenino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Infantil Masculino">Infantil Masculino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Infantil Femenino">Infantil Femenino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Alevin Masculino">Alevin Masculino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Alevin Femenino">Alevin Femenino</a></li>
+                        <li><a class="dropdown-item" routerLink="statelist/Benjamin">Benjamin</a></li>
+                    </ul>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" routerLink="calendariopartidos">Calendario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" routerLink="listacategorias">Categorías</a>
+                </li> 
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="pt-1 pb-1 ml-0 container-xxl container-fluid">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,74 @@
+<div class="card text-center">
+    <p-dialog header="Header" [transitionOptions]="'500ms'" [modal]="true" [dismissableMask]="true" [closable]="true" [(visible)]="displayBasic">
+        <ng-template pTemplate="header" class="row align-items-center">
+            <div class="row">
+                <div class="col">
+                    <h3>Añadir partido</h3> 
+                </div>
+            </div>
+        </ng-template>
+        <div>
+            <form [formGroup]="formularioDeJugadores" (ngSubmit)="agregarPartido()">
+                <div class="container-sm">
+                    <div class="row align-items-center">
+                        <div class="col-sm"> 
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fecha" class="form-label">Fecha</label>
+                                    <input type="date" value="{{fechaseleccionada}}" formControlName="fecha" class="form-control" id="fecha">
+                                </div>
+                                <div class="col">
+                                    <label for="hora" class="form-label">Hora</label>
+                                    <input type="time" value="{{horaseleccionada}}" formControlName="hora" class="form-control" id="hora">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="equipo_contrario" class="form-label"><i class="bi bi-person-fill"></i>
+                                        Equipo Contrario</label>
+                                    <input type="text" formControlName="equipo_contrario" class="form-control" id="equipo_contrario">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="cod_categoria" class="form-label"><i class="bi bi-person-fill"></i>
+                                        Código categoría</label>
+                                    <select class="form-select form-select-sm form-control" formControlName="cod_categoria" aria-describedby="helpId" aria-label=".form-select-sm example">
+                                        <option disabled>Selecciona una categoría</option>
+                                        <option value="Territorial Femenino">Territorial Femenino</option>
+                                        <option value="Territorial Masculino">Territorial Masculino</option>
+                                        <option value="Juvenil Femenino">Juvenil Femenino</option>
+                                        <option value="Juvenil Masculino">Juvenil Masculino</option>
+                                        <option value="Cadete Femenino">Cadete Femenino</option>
+                                        <option value="Cadete Masculino">Cadete Masculino</option>
+                                        <option value="Infantil Femenino">Infantil Femenino</option>
+                                        <option value="Infantil Masculino">Infantil Masculino</option>
+                                        <option value="Alevin Femenino">Alevin Femenino</option>
+                                        <option value="Alevin Masculino">Alevin Masculino</option>
+                                        <option value="Benjamin">Benjamin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col" style="text-align: center;">
+                                    <button type="submit" class="btn btn-success">Añadir</button>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>    
+        <ng-template pTemplate="footer">
+        </ng-template>
+    </p-dialog>
+    
+    
+    <div class="card shadow-lg table-responsive-xxl pb-2">
+        <div class="container mt-2">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+        </div>
+    </div>
+</div>
+
+

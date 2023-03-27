@@ -1,0 +1,49 @@
+<div class="card shadow-lg table-responsive-xxl">
+    <div class="container">
+        <p-table [value]="categorias" responsiveLayout="scroll" styleClass="p-datatable-sm small">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Categoría</th>
+                    <th>Primer entrenador</th>
+                    <th>Segundo entrenador</th>
+                    <th>Días de entrenamiento</th>
+                    <th>Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-categoria let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{categoria.cod_categoria}}</td>
+                    <td>{{categoria.entrenador}}</td>
+                    <td>{{categoria.segundo_entrenador}}</td>
+                    <td>{{categoria.dia_entrenamiento}}</td>
+                    <td>
+                        <a pButton pRipple type="button" style="text-decoration:none" icon="pi pi-user" routerLink="/editarcategoria/{{categoria.cod_categoria}}" title="Editar Categoría" class="p-button-rounded btn-primary p-button-sm"></a>
+                        <a pButton pRipple type="button" data-bs-toggle="modal" data-bs-target="#confirmacion" (click)="AbrirModal(categoria.cod_categoria,rowIndex)" style="text-decoration:none" icon="pi pi-trash" class="p-button-rounded p-button-danger"></a>
+                    </td>
+                </tr>
+                <!-- Modal Confirmación Eliminar -->
+            <div class="modal fade" id="confirmacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirme</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Seguro que desea eliminar la categoría {{codcategoriamodal}}?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" (click)="borrarRegistro()" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

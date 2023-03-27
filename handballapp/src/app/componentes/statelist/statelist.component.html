@@ -1,0 +1,84 @@
+
+<p-toast></p-toast>
+<div class="card shadow-lg">
+    <div class="row mt-1">
+        <div class="col">
+            <span class="p-input-icon-left p-1">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText placeholder="Buscar" 
+                name="filter"/>
+            </span>
+        </div>
+        <div class="col">
+            <button type="button" (click)="AgregarJugador()" class="btn btn-primary"><i class="bi bi-person-plus-fill"> </i> Agregar Jugador</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-info" type="button" (click)="IrPartido()" [disabled]="!selectedjugadores.length || loading"><i class="bi bi-award"></i>Ir a partido
+                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <p-table [value]="jugadores" responsiveLayout="scroll" styleClass="p-datatable-sm small" [(selection)]="selectedjugadores">
+        <ng-template pTemplate="header">
+            <tr>
+                <th >
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="dni">DNI<p-sortIcon field="dni"></p-sortIcon></th>
+                <th pSortableColumn="nombre">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="apellidos">Apellidos<p-sortIcon field="categoria"></p-sortIcon></th>
+                <th>Correo</th>
+                <th pSortableColumn="fech_nacim">Nacimiento<p-sortIcon field="fech_nacim"></p-sortIcon></th>
+                <th pSortableColumn="edad">Edad<p-sortIcon field="edad"></p-sortIcon></th>
+                <th>Teléfono</th>
+                <th>Móvil</th>
+                <th>Categoría</th>
+                <th>Acción</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-jugador let-rowIndex="rowIndex">
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="jugador"></p-tableCheckbox>
+                </td>
+                <td>{{jugador.dni}}</td>
+                <td>{{jugador.nombre}}</td>
+                <td>{{jugador.apellidos}}</td>
+                <td>{{jugador.correo}}</td>
+                <td>{{jugador.fech_nacim}}</td>
+                <td>{{jugador.edad}} años</td>
+                <td>{{jugador.telefono}}</td>
+                <td>{{jugador.movil}}</td>
+                <td>{{jugador.cod_categoria}}</td>
+                <td>
+                    <a pButton pRipple type="button" style="text-decoration:none" icon="pi pi-user" routerLink="/editar-jugador/{{jugador.dni}}" title="Editar Jugador" class="p-button-rounded btn-primary p-button-sm"></a>
+                    <a pButton pRipple type="button" data-bs-toggle="modal" data-bs-target="#confirmacion" (click)="AbrirModal(jugador.dni,rowIndex,jugador.nombre,jugador.apellidos)" style="text-decoration:none" icon="pi pi-trash" class="p-button-rounded p-button-danger"></a>
+                </td>
+            </tr>
+            <!-- Modal Confirmación Eliminar -->
+            <div class="modal fade" id="confirmacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirme</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Seguro que desea eliminar al jugador {{nombrejugadormodal}} con DNI: {{dnijugadormodal}}?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" (click)="borrarRegistro()" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                En total hay {{jugadores ? jugadores.length : 0 }} jugadores.
+            </div>
+        </ng-template>
+    </p-table>
+</div>

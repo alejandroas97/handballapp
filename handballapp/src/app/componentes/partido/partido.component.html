@@ -1,0 +1,342 @@
+<!-- Diálogo Inicial -->
+<p-dialog header="Header" [transitionOptions]="'500ms'" [style]="{width: '90vw', height: '70vw'}" [closable]="false" [(visible)]="displayBasic">
+    <ng-template pTemplate="header">
+        <h3>Seleccione un partido</h3>
+    </ng-template>
+    <div class="card">
+        <p-table [value]="partidos" [(selection)]="seleccionpartido" dataKey="cod" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem"></th>
+                    <th>Categoría</th>
+                    <th>Equipo Contrario</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-partido>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="partido"></p-tableCheckbox>
+                    </td>
+                    <td>{{partido.cod_categoria}}</td>
+                    <td>{{partido.equipo_contrario}}</td>
+                    <td>{{partido.fecha}}</td>
+                    <td>{{partido.hora}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <ng-template pTemplate="footer">
+        <button class="btn btn-primary" type="button" (click)="Enviar()" [disabled]="(seleccionpartido.length) != 1">Ir a partido
+        </button>
+    </ng-template>
+</p-dialog>
+<!--Diálogo Inicial-->
+
+
+
+<div class="card shadow-lg table-responsive-xxl">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3 pt-1">
+                <label for="vertical" style="display: block">{{partidoenjuego.cod_categoria}}:</label>
+                <p-inputNumber [(ngModel)]="local" [inputStyle]="{width: '40px','text-align': 'center','font-weight': '1000'}" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                </p-inputNumber>
+            </div>
+            <div class="col-2 pt-2">
+                <form [formGroup]="formularioparte">
+                    <label for="select1" class="p-1 form-label">Parte: </label>
+                    <select formControlName="parte" id="select1">
+                        <option value="1ª">1ª</option>
+                        <option value="2ª">2ª</option>
+                    </select> 
+                </form>
+            </div>
+            <div class="col-4 align-self-center">
+                <p-inputNumber [(ngModel)]="reloj.minuto" [inputStyle]="{width: '40px','text-align': 'center','font-weight': '1000'}" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                </p-inputNumber>
+                <p-inputNumber [(ngModel)]="reloj.segundo" [inputStyle]="{width: '40px','text-align': 'center','font-weight': '1000'}" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                </p-inputNumber>
+            </div>
+            <div class="col-3 pt-1">
+                <label for="vertical" style="display: block">{{partidoenjuego.equipo_contrario}}:</label>
+                <p-inputNumber [(ngModel)]="visitante" [inputStyle]="{width: '40px','text-align': 'center','font-weight': '1000'}" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+                decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3">
+
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-4 align-self-center">
+                <button (click)="startTimer()" [disabled]="onoff" class="btn btn-secondary"><i class="bi bi-skip-start-fill"></i>Start</button>
+                <button (click)="pauseTimer()" [disabled]="!onoff" class="btn btn-secondary"><i class="bi bi-pause-fill"></i>Pause</button>
+            </div>
+            <div class="col-3 mt-2 mb-2">
+                <button type="button" class="btn btn-primary" (click)="EliminarPartido()" routerLink="/statelist/todos"><i class="bi bi-stop-circle"></i> Terminar partido</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table table-bordered text-center align-middle p-0">
+            <thead>
+                <tr>
+                    <th colspan="6">Jugadores</th>
+                    <th colspan="13">Goles</th>
+                    <th colspan="7">Infracciones</th>
+                    <th colspan="9">Errores</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let jugador of estadisticas" >
+                <tr>
+                    <td class="align-middle" colspan="6" rowspan="5"  style="font-size:x-large; width: 150px; height: 0px; padding: 0px;">
+                        <div class="">
+                            <div>
+                                {{jugador.nombre}} {{jugador.apellidos}}
+                            </div>
+                            <div>
+                                <button type="button" title="Agregar Gol" (click)="AbrirModal(jugador.nombre,jugador.apellidos)" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalgol">
+                                    <i class="bi bi-dribbble"></i>
+                                </button>
+                                <button type="button" title="Agregar Infracción" (click)="AbrirModal(jugador.nombre,jugador.apellidos)" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalinfraccion">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                </button>
+                                <button type="button" title="Agregar Error" (click)="AbrirModal(jugador.nombre,jugador.apellidos)" class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#modalerror">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="4" rowspan="2">
+                        <div class="row">
+                            <div class="col">
+                                <span style="font-weight: 800;">Dorsal:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input style="padding: 0px; border: 1; width: 40px; text-align: center;" type="text">
+                            </div>
+                        </div>
+                    </td>
+                    <td colspan="3" style="padding: 0px; width: auto;">≥9m</td>
+                    <td colspan="3" style="padding: 0px; width: auto;">7m</td>
+                    <td colspan="3" style="padding: 0px; width: auto;">6m</td>
+                    <td colspan="4" rowspan="2">Amarillas</td>
+                    <td colspan="3" rowspan="2">2min</td>
+                    <td colspan="3" rowspan="2">PerBal</td>
+                    <td colspan="3" rowspan="2">TirFa</td>
+                    <td colspan="3" rowspan="2">ErrDef</td>
+                </tr>
+                <tr>
+                    <td style="width: auto; height: auto; padding: 0px;">I</td>
+                    <td style="width: auto; height: auto; padding: 0px;">C</td>
+                    <td style="width: auto; height: auto; padding: 0px;">D</td>
+                    <td style="width: auto; height: auto; padding: 0px;">I</td>
+                    <td style="width: auto; height: auto; padding: 0px;">C</td>
+                    <td style="width: auto; height: auto; padding: 0px;">D</td>
+                    <td style="width: auto; height: auto; padding: 0px;">I</td>
+                    <td style="width: auto; height: auto; padding: 0px;">C</td>
+                    <td style="width: auto; height: auto; padding: 0px;">D</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="width: auto; height: auto; padding: 0px;">Arriba</td>
+                    <td>{{jugador.IAr9}}</td>
+                    <td>{{jugador.CAr9}}</td>
+                    <td>{{jugador.DAr9}}</td>
+                    <td>{{jugador.IAr7}}</td>
+                    <td>{{jugador.CAr7}}</td>
+                    <td>{{jugador.DAr7}}</td>
+                    <td>{{jugador.IAr6}}</td>
+                    <td>{{jugador.CAr6}}</td>
+                    <td>{{jugador.DAr6}}</td>
+                    <td colspan="4" rowspan="3" style="font-size:xx-large">{{jugador.amarilla}}</td>
+                    <td colspan="3" rowspan="3" style="font-size:xx-large">{{jugador.min2}}</td>
+                    <td colspan="3" rowspan="3" style="font-size:xx-large">{{jugador.PerBal}}</td>
+                    <td colspan="3" rowspan="3" style="font-size:xx-large">{{jugador.TirFa}}</td>
+                    <td colspan="3" rowspan="3" style="font-size:xx-large">{{jugador.ErrDef}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="width: auto; height: auto; padding: 0px;">Medio</td>
+                    <td>{{jugador.IMe9}}</td>
+                    <td>{{jugador.CMe9}}</td>
+                    <td>{{jugador.DMe9}}</td>
+                    <td>{{jugador.IMe7}}</td>
+                    <td>{{jugador.CMe7}}</td>
+                    <td>{{jugador.DMe7}}</td>
+                    <td>{{jugador.IMe6}}</td>
+                    <td>{{jugador.CMe6}}</td>
+                    <td>{{jugador.DMe6}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="width: auto; height: auto; padding: 0px;">Abajo</td>
+                    <td>{{jugador.IAb9}}</td>
+                    <td>{{jugador.CAb9}}</td>
+                    <td>{{jugador.DAb9}}</td>
+                    <td>{{jugador.IAb7}}</td>
+                    <td>{{jugador.CAb7}}</td>
+                    <td>{{jugador.DAb7}}</td>
+                    <td>{{jugador.IAb6}}</td>
+                    <td>{{jugador.CAb6}}</td>
+                    <td>{{jugador.DAb6}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</div>
+
+
+
+<!-- Modal Goles-->
+<div class="modal fade" id="modalgol" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir gol para {{jugadormodal}} {{apellidomodal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body align-items-center">
+            <h5>Gol</h5>
+            <div class="row align-items-center">
+                <form [formGroup]="formulariogoles">
+                    <div class="col">
+                        <p>Distancia:</p>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="distancia" type="radio" name="distancia" id="9m" value="9">
+                            <label class="form-check-label" for="9m">≥9m</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="distancia" type="radio" name="distancia" id="7m" value="7">
+                            <label class="form-check-label" for="7m">7m</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="distancia" type="radio" name="distancia" id="6m" value="6">
+                            <label class="form-check-label" for="6m">6m</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p>Altura:</p>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="altura" type="radio" name="altura" id="arriba" value="Ar">
+                            <label class="form-check-label" for="arriba">Arriba</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="altura" type="radio" name="altura" id="medio" value="Me">
+                            <label class="form-check-label" for="medio">Medio</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="altura" type="radio" name="altura" id="abajo" value="Ab">
+                            <label class="form-check-label" for="abajo">Abajo</label>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p>Lugar portería:</p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" formControlName="lugar" type="radio" name="lugar" id="izquierda" value="I">
+                            <label class="form-check-label" for="izquierda">Izquierda</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" formControlName="lugar" type="radio" name="lugar" id="centro" value="C">
+                            <label class="form-check-label" for="centro">Centro</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" formControlName="lugar" type="radio" name="lugar" id="derecha" value="D">
+                            <label class="form-check-label" for="derecha">Derecha</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="GuardarGol()" data-bs-dismiss="modal">Guardar</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- Modal Infracciones -->
+<div class="modal fade" id="modalinfraccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir infracción para {{jugadormodal}} {{apellidomodal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body align-items-center">
+            <div class="row align-items-center">
+                <form [formGroup]="formularioinfraccion">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-check-label" for="amarilla"><h5 style="margin-right: 10px;">Amarilla </h5></label>
+                            <input class="form-check-input" formControlName="infraccion" type="radio" name="infraccion" id="amarilla" value="amarilla">
+                        </div>
+                        <div class="col">
+                            <label class="form-check-label" for="2minutos"><h5 style="margin-right: 10px;">2 minutos </h5></label>
+                            <input class="form-check-input" formControlName="infraccion" type="radio" name="infraccion" id="2minutos" value="2minutos">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="GuardarInfraccion()" data-bs-dismiss="modal">Guardar</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- Modal Errores -->
+<div class="modal fade" id="modalerror" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir error para {{jugadormodal}} {{apellidomodal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body align-items-center">
+            <div class="row align-items-center">
+                <form [formGroup]="formularioerror">
+                    <div class="row p-0">
+                        <div class="col form-check form-check-inline">
+                            <label class="form-check-label" for="PerBal"><h6 style="margin-right: 10px;">Pérdida de balón </h6></label>
+                            <input class="form-check-input" formControlName="error" type="radio" name="error" id="PerBal" value="Pérdida Balón">
+                        </div>
+                        <div class="col form-check form-check-inline">
+                            <label class="form-check-label" for="TirFa"><h6 style="margin-right: 10px;">Tiro fallado </h6></label>
+                            <input class="form-check-input" formControlName="error" type="radio" name="error" id="TirFa" value="Tiro Fallado">
+                        </div>
+                        <div class="col form-check form-check-inline">
+                            <label class="form-check-label" for="ErrDef"><h6 style="margin-right: 10px;">Error defensivo</h6></label>
+                            <input class="form-check-input" formControlName="error" type="radio" name="error" id="ErrDef" value="Error Defensivo">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col form-check form-check-inline">
+                            <span class="p-float-label">
+                                <textarea id="float-input" formControlName="descripcion" rows="5" cols="30" maxlength="200" pInputTextarea></textarea>
+                                <label for="float-input">Descripción</label>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="GuardarError()" data-bs-dismiss="modal">Guardar</button>
+        </div>
+    </div>
+    </div>
+</div>

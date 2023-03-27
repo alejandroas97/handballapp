@@ -1,0 +1,4 @@
+:host ::ng-deep .fc-header-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+}

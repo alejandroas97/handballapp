@@ -1,0 +1,218 @@
+<div class="card">
+    <div class="card-header">
+        Editar jugador
+    </div>
+    <div class="card-body">
+        
+        <form [formGroup]="formularioDeJugadores" (ngSubmit)="enviarDatos()">
+            <div class="container-sm">
+                <div class="row align-items-start">
+                    <div class="col-sm"> 
+                        <div class="mb-3 row">
+                            <div class="col-5">
+                                
+                                <label for="nombre" class="form-label">
+                                    <i class="bi bi-person-fill"></i>
+                                    Nombre:</label>
+                                <input type="text"
+                                class="form-control" name="" formControlName="nombre" id="nombre" aria-describedby="helpId" placeholder="Nombre">
+                            </div>
+                            <div class="col-7">
+                                <i class="bi bi-person-plus-fill m-2"></i>
+                                <label for="apellidos" class="form-label">Apellidos:</label>
+                                <input type="text"
+                                class="form-control" name="" formControlName="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Apellidos">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-card-heading m-2"></i>
+                                <label for="" class="form-label">DNI:</label>
+                                <input type="text"
+                                class="form-control" name="dni" formControlName="dni" id="" aria-describedby="helpId" placeholder="Escribe un DNI" [readonly]="true">
+                            </div>
+    
+                            <div class="mb-3 col-7">
+                                <label for="" class="form-label">Fecha de nacimiento:</label>
+                                <input type="date"
+                                    class="form-control" name="" formControlName="fech_nacim" id="" aria-describedby="helpId" placeholder="Escribe una fecha de nacimiento">
+                            </div>
+                        </div>
+                        
+
+                        <div class="mb-3 col-8">
+                            <i class="bi bi-envelope-fill m-2"></i>
+                            <label for="" class="form-label">Correo:</label>
+                            <input type="email"
+                                class="form-control" name="" formControlName="correo" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-telephone m-2"></i>
+                                <label for="" class="form-label">Teléfono:</label>
+                                <input type="tel"
+                                    class="form-control" name="" formControlName="telefono" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                            </div>
+
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-phone m-2"></i>
+                                <label for="" class="form-label">Móvil:</label>
+                                <input type="tel"
+                                    class="form-control" name="" formControlName="movil" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <i class="bi bi-bookmark m-2"></i>
+                            <label for="" class="form-label">Categoría:</label>
+                            <select class="form-select form-select-sm form-control" formControlName="cod_categoria" aria-describedby="helpId" aria-label=".form-select-sm example">
+                                <option disabled>Selecciona una categoría</option>
+                                <option selected *ngFor="let jugador of jugadores">
+                                    {{jugador.cod_categoria}} (actual)</option>
+                                <option value="Territorial Femenino">Territorial Femenino</option>
+                                <option value="Territorial Masculino">Territorial Masculino</option>
+                                <option value="Juvenil Femenino">Juvenil Femenino</option>
+                                <option value="Juvenil Masculino">Juvenil Masculino</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="btn" role="group" aria-label="">
+                                <button type="submit" class="btn btn-success">Actualizar</button>
+                            </div>
+                            <div class="btn" role="group" aria-label="">
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="row justify-content-center">
+                            <div class="col p-1 text-center">
+                                <p-card>
+                                    <h2>Total goles: <span class="badge bg-secondary">{{numgoles}}</span></h2>
+                                </p-card>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col p-1 text-center">
+                                <p-card>
+                                    <h2>Ha metido en: <span class="badge bg-secondary">{{partidometido}}</span> partidos</h2>
+                                </p-card>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col p-1 text-center">
+                                <p-card>
+                                    <p-table [value]="goles" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" styleClass="p-datatable-sm small">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="parte">Parte<p-sortIcon field="parte"></p-sortIcon></th>
+                                                <th pSortableColumn="minuto">Minuto<p-sortIcon field="minuto"></p-sortIcon></th>
+                                                <th pSortableColumn="distancia">Distancia<p-sortIcon field="distancia"></p-sortIcon></th>
+                                                <th>Lugar Portería</th>
+                                                <th>Altura Portería</th>
+                                                <th>Equipo Contrario</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-goles let-rowIndex="rowIndex">
+                                            <tr>
+                                                <td>{{goles.parte}}</td>
+                                                <td>{{goles.minuto}}</td>
+                                                <td>{{goles.distancia}}</td>
+                                                <td>{{goles.lugar_porteria}}</td>
+                                                <td>{{goles.altura_porteria}}</td>
+                                                <td>{{goles.equipo_contrario}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </p-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+    
+</div>
+
+<!-- Infracciones -->
+<div class="card">
+    <div class="container-sm">
+        <div class="row align-items-start">
+            <div class="col-sm">
+                <div class="row justify-content-center">
+                    <div class="col p-1 text-center">
+                        <p-card>
+                            <h2>Total infracciones: <span class="badge bg-secondary">{{numinfracciones}}</span></h2>
+                        </p-card>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col p-1 text-center">
+                        <p-card>
+                            <p-table [value]="infracciones" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" styleClass="p-datatable-sm small">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="parte">Parte<p-sortIcon field="parte"></p-sortIcon></th>
+                                        <th pSortableColumn="minuto">Minuto<p-sortIcon field="minuto"></p-sortIcon></th>
+                                        <th pSortableColumn="tipo">Tipo<p-sortIcon field="tipo"></p-sortIcon></th>
+                                        <th>Equipo Contrario</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-infracciones let-rowIndex="rowIndex">
+                                    <tr>
+                                        <td>{{infracciones.parte}}</td>
+                                        <td>{{infracciones.minuto}}</td>
+                                        <td>{{infracciones.tipo}}</td>
+                                        <td>{{infracciones.equipo_contrario}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Errores -->
+            <div class="col-sm">
+                <div class="row justify-content-center">
+                    <div class="col p-1 text-center">
+                        <p-card>
+                            <h2>Total errores: <span class="badge bg-secondary">{{numerrores}}</span></h2>
+                        </p-card>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col p-1 text-center">
+                        <p-card>
+                            <p-table [value]="errores" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" styleClass="p-datatable-sm small">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="parte">Parte<p-sortIcon field="parte"></p-sortIcon></th>
+                                        <th pSortableColumn="minuto">Minuto<p-sortIcon field="minuto"></p-sortIcon></th>
+                                        <th pSortableColumn="tipo">Tipo<p-sortIcon field="tipo"></p-sortIcon></th>
+                                        <th>Descripción</th>
+                                        <th>Equipo Contrario</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-errores let-rowIndex="rowIndex">
+                                    <tr>
+                                        <td>{{errores.parte}}</td>
+                                        <td>{{errores.minuto}}</td>
+                                        <td>{{errores.tipo}}</td>
+                                        <td>{{errores.descripcion}}</td>
+                                        <td>{{errores.equipo_contrario}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+
+
+
+<p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Jugadores" targetHeader="Jugadores Seleccionados" [dragdrop]="true"
+    [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="nombre"
+    sourceFilterPlaceholder="Buscar por nombre" targetFilterPlaceholder="Buscar por nombre">
+    <ng-template pTemplate="body" let-jugador>
+        <div class="product-item">
+            <div class="image-container">
+            </div>
+            <div class="product-list-detail">
+                <h5 class="mb-2">{{jugador.dni}}</h5>
+                <i class="pi pi-tag product-category-icon"></i>
+                <span class="product-category">{{jugador.nombre}}</span>
+            </div>
+            <div class="product-list-action">
+                <h6 class="mb-2">${{jugador.apellidos}}</h6>
+                <span [class]="'product-badge status-' + jugador.categoria.toLowerCase()">{{jugador.categoria}}</span>
+            </div>
+        </div>
+    </ng-template>
+</p-pickList>

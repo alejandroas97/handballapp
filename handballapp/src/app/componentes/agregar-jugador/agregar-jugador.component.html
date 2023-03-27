@@ -1,0 +1,92 @@
+<div class="card">
+    <div class="card-header">
+        Agregar jugador
+    </div>
+    <div class="card-body">
+        <form [formGroup]="formularioDeJugadores" (ngSubmit)="enviarDatos()">
+            <div class="container-sm">
+                <div class="row align-items-start">
+                    <div class="col-sm"> 
+                        <div class="mb-3 row">
+                            <div class="col-5">
+                                <label for="nombre" class="form-label">
+                                    <i class="bi bi-person-fill"></i>
+                                    Nombre:</label>
+                                <input type="text"
+                                class="form-control" name="" formControlName="nombre" id="nombre" aria-describedby="helpId" placeholder="Nombre">
+                            </div>
+                            <div class="col-7">
+                                <i class="bi bi-person-plus-fill m-2"></i>
+                                <label for="apellidos" class="form-label">Apellidos:</label>
+                                <input type="text"
+                                class="form-control" name="" formControlName="apellidos" id="apellidos" aria-describedby="helpId" placeholder="Apellidos">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-card-heading m-2"></i>
+                                <label for="" class="form-label">DNI:</label> <br>
+                                <p-inputMask formControlName="dni" mask="99999999a" placeholder="Ejemplo: 99999999A"></p-inputMask>
+                            </div>
+                            <div class="mb-3 col-7">
+                                <label for="" class="form-label">Fecha de nacimiento:</label>
+                                <input type="date"
+                                    class="form-control" name="" formControlName="fech_nacim" id="" aria-describedby="helpId" placeholder="Escribe una fecha de nacimiento">
+                            </div>
+                        </div>
+                        
+
+                        <div class="mb-3 col-8">
+                            <i class="bi bi-envelope-fill m-2"></i>
+                            <label for="" class="form-label">Correo:</label>
+                            <input type="email"
+                                class="form-control" name="" formControlName="correo" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-telephone m-2"></i>
+                                <label for="" class="form-label">Teléfono:</label>
+                                <input type="tel"
+                                    class="form-control" name="" formControlName="telefono" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                            </div>
+
+                            <div class="mb-3 col-5">
+                                <i class="bi bi-phone m-2"></i>
+                                <label for="" class="form-label">Móvil:</label>
+                                <input type="tel"
+                                    class="form-control" name="" formControlName="movil" id="" aria-describedby="helpId" placeholder="Escribe un correo">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <i class="bi bi-bookmark m-2"></i>
+                            <label for="" class="form-label">Categoría:</label>
+                            <select class="form-select form-select-sm form-control" formControlName="cod_categoria" aria-describedby="helpId" aria-label=".form-select-sm example">
+                                <option disabled>Selecciona una categoría</option>
+                                <option value="Territorial Femenino">Territorial Femenino</option>
+                                <option value="Territorial Masculino">Territorial Masculino</option>
+                                <option value="Juvenil Femenino">Juvenil Femenino</option>
+                                <option value="Juvenil Masculino">Juvenil Masculino</option>
+                                <option value="Cadete Femenino">Cadete Femenino</option>
+                                <option value="Cadete Masculino">Cadete Masculino</option>
+                                <option value="Infantil Femenino">Infantil Femenino</option>
+                                <option value="Infantil Masculino">Infantil Masculino</option>
+                                <option value="Alevin Femenino">Alevin Femenino</option>
+                                <option value="Alevin Masculino">Alevin Masculino</option>
+                                <option value="Benjamin">Benjamin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <div class="btn" role="group" aria-label="">
+                                <button type="submit" class="btn btn-success" [disabled]="">Agregar</button>
+                            </div>
+                            <div class="btn" role="group" aria-label="">
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+  </div>

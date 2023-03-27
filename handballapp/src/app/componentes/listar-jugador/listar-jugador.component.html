@@ -1,0 +1,57 @@
+<div class="card shadow-lg p-3 mb-5 bg-body rounded">
+    <div class="card-header">
+        <a class="btn btn-success" routerLink="/agregar-jugador/"> Agregar nuevo jugador </a>
+    </div>
+    <div class="card-body">
+        <h1 class="fst-italic">{{ lacat }}</h1>
+        <div class="table-responsive fs-10">
+            <table class="table table-sm table-striped table-hover table-bordered border-dark text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Móvil</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let jugador of jugadores; let iControl=index">
+                        <td>{{jugador.dni}}</td>
+                        <td>{{jugador.nombre}}</td>
+                        <td>{{jugador.apellidos}}</td>
+                        <td>{{jugador.fech_nacim}} <br>
+                            {{jugador.edad}} años
+                        </td>
+                        <td>{{jugador.movil}}</td>
+                        <td>{{jugador.telefono}}</td>
+                        <td>{{jugador.correo}}</td>
+                        <td>{{jugador.cod_categoria}}</td>
+                        <td>
+                            <a class="btn btn-info" routerLink="/editar-jugador/{{jugador.dni}}"> Editar </a> | 
+                              
+                            <a class="btn btn-danger" (click)="borrarRegistro(jugador.dni,iControl)" role="button">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-dark">
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Móvil</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
